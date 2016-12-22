@@ -1,6 +1,6 @@
 {
-  "name": "vikpe/php-normalize-headings",
-  "description": "Promote and demote HTML headings",
+  "name": "vikpe/php-html-heading-normalizer",
+  "description": "PHP class for normalizing (promote/demote) HTML headings",
   "keywords": [
     "html",
     "headings",
@@ -8,13 +8,13 @@
     "promote",
     "demote"
   ],
-  "homepage": "https://github.com/vikpe/php-normalize-headings",
+  "homepage": "https://github.com/vikpe/php-html-heading-normalizer",
   "license": "MIT",
   "authors": [
     {
       "name": "Viktor Persson",
       "email": "viktor.persson@arcsin.se",
-      "homepage": "http://arcsin.se"
+      "homepage": "https://github.com/vikpe"
     }
   ],
   "require": {
@@ -24,8 +24,8 @@
     "phpunit/phpunit": "~4.0"
   },
   "support": {
-    "issues": "https://github.com/vikpe/php-normalize-headings/issues",
-    "source": "https://github.com/vikpe/php-normalize-headings"
+    "issues": "https://github.com/vikpe/php-html-heading-normalizer/issues",
+    "source": "https://github.com/vikpe/php-html-heading-normalizer"
   },
   "autoload": {
     "psr-4": {
