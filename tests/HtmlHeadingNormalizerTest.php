@@ -1,8 +1,8 @@
 <?php
 
-use Vikpe\HtmlHeadingNormalizer;
+namespace Vikpe;
 
-class HtmlHeadingNormalizerTestCase extends PHPUnit_Framework_TestCase
+class HtmlHeadingNormalizerTestCase extends \PHPUnit_Framework_TestCase
 {
     public function testNormalize()
     {

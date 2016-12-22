@@ -4,25 +4,25 @@ namespace Vikpe;
 
 class HtmlHeadingNormalizer
 {
-    public static function normalize($html, $base_level = 0)
+    public static function normalize($html)
     {
-        if (!self::_htmlContainsHeadings($html)) {
+        if (!self::htmlContainsHeadings($html)) {
             return $html;
         }
 
-        $DomDocument = new \DOMDocument();
-        $DomDocument->loadHTML($html);
+        $domDocument = new \DOMDocument();
+        $domDocument->loadHTML($html);
 
-        $normalized_html = $DomDocument->saveHTML();
+        $normalizedHtml = $domDocument->saveHTML();
 
-        return $normalized_html;
+        return $normalizedHtml;
     }
 
-    private static function _htmlContainsHeadings($html)
+    private static function htmlContainsHeadings($html)
     {
-        $heading_needle = '<h';
-        $html_contains_headings = (false === stripos($html, $heading_needle));
+        $headingNeedle = '<h';
+        $containsHeadings = (false === stripos($html, $headingNeedle));
 
-        return $html_contains_headings;
+        return $containsHeadings;
     }
 }
