@@ -1,8 +1,8 @@
 <?php
 
-use Vikpe\HeadingNormalizer;
+use Vikpe\HtmlHeadingNormalizer;
 
-class HeadingNormalizerTestCase extends PHPUnit_Framework_TestCase
+class HtmlHeadingNormalizerTestCase extends PHPUnit_Framework_TestCase
 {
     public function testNormalize()
     {
@@ -12,11 +12,11 @@ class HeadingNormalizerTestCase extends PHPUnit_Framework_TestCase
         ';
 
         $expect = '
-        <h3>Foo</h3>
+        <h2>Foo</h2>
         <p>bar</h2>
         ';
 
-        $actual = HeadingNormalizer::normalize($html, 3);
+        $actual = HtmlHeadingNormalizer::normalize($html, 3);
 
         $this->assertEquals($expect, $actual);
     }
