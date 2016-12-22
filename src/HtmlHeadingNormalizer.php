@@ -6,8 +6,7 @@ class HtmlHeadingNormalizer
 {
     public static function normalize($html, $base_level = 0)
     {
-        if ( !self::_htmlContainsHeadings($html) )
-        {
+        if ( !self::_htmlContainsHeadings($html) ) {
             return $html;
         }
 
