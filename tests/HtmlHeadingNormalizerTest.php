@@ -2,7 +2,7 @@
 
 namespace Vikpe;
 
-class HtmlHeadingNormalizerTestCase extends \PHPUnit_Framework_TestCase
+class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     public function testNormalize()
     {
@@ -16,7 +16,7 @@ class HtmlHeadingNormalizerTestCase extends \PHPUnit_Framework_TestCase
         <p>bar</h2>
         ';
 
-        $actual = HtmlHeadingNormalizer::normalize($html, 3);
+        $actual = HtmlHeadingNormalizer::normalize($html);
 
         $this->assertEquals($expect, $actual);
     }
