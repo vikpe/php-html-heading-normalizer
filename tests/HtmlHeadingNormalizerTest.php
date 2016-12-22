@@ -6,16 +6,16 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     public function testNormalize()
     {
-        $html = '
-        <h2>Foo</h2>
-        <p>bar</h2>
-        ';
+        $this->assertEquals(
+            '',
+            HtmlHeadingNormalizer::normalize('')
+        );
 
-        $expect = '
-        <h2>Foo</h2>
-        <p>bar</h2>
-        ';
+        /////
 
+        $html = '<h2>Foo</h2><p>bar</p>';
+
+        $expect = '<h2>Foo</h2><p>bar</p>';
         $actual = HtmlHeadingNormalizer::normalize($html);
 
         $this->assertEquals($expect, $actual);

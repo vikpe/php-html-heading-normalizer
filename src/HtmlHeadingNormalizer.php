@@ -10,10 +10,7 @@ class HtmlHeadingNormalizer
             return $html;
         }
 
-        $domDocument = new \DOMDocument();
-        $domDocument->loadHTML($html);
-
-        $normalizedHtml = $domDocument->saveHTML();
+        $normalizedHtml = $html;
 
         return $normalizedHtml;
     }
