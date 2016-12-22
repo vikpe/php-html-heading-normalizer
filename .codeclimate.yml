@@ -8,6 +8,9 @@ engines:
   phpcodesniffer:
     enabled: true
   phpmd:
+    checks:
+      CleanCode/StaticAccess:
+        enabled: false
     enabled: true
 exclude_paths:
   - vendor/**/*
