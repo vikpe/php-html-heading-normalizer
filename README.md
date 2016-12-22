@@ -1,4 +1,4 @@
-# PHP: HTML Heading Normalizer
+# HTML Heading Normalizer
 PHP class for normalizing (promote/demote) HTML headings.
 
 [![Build Status](https://travis-ci.org/vikpe/php-normalize-headings.svg?branch=master)](https://travis-ci.org/vikpe/php-normalize-headings)
