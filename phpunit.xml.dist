@@ -4,4 +4,9 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false">
+    <testsuites>
+        <testsuite name="AllTests">
+            <directory>/tests/*Test.php</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
