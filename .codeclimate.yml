@@ -5,11 +5,10 @@ engines:
       languages:
         - php
     enabled: true
-  engines:
-    phpcodesniffer:
-      enabled: true
-    phpmd:
-      enabled: true
+  phpcodesniffer:
+    enabled: true
+  phpmd:
+    enabled: true
 exclude_paths:
   - vendor/**/*
 ratings:
