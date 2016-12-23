@@ -24,11 +24,8 @@ class HtmlHeadingNormalizer
             foreach ($headingDomElements as $headingDomElement) {
                 $currentHeadingLevel = self::headingTagNameToNumber($headingDomElement->tagName);
                 $newHeadingLevel = self::numberToHeadingLevel($baseLevel + $currentHeadingLevel - 1);
-
-                if ($newHeadingLevel !== $currentHeadingLevel) {
-                    $originalHeadings[] = $headingDomElement;
-                    $normalizedHeadings[] = self::cloneDomElementWithNewTagName($headingDomElement, $newHeadingLevel);
-                }
+                $originalHeadings[] = $headingDomElement;
+                $normalizedHeadings[] = self::cloneDomElementWithNewTagName($headingDomElement, $newHeadingLevel);
             }
         }
 
