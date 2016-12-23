@@ -55,8 +55,9 @@ class HtmlHeadingNormalizer
     private static function containsHeadings($html)
     {
         $heading_needle = '<h';
+        $containsHeadings = (false !== stripos($html, $heading_needle));
 
-        return (false !== stripos($html, $heading_needle));
+        return $containsHeadings;
     }
 
     private static function tagNameToLevel($tagName)
