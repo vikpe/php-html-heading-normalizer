@@ -4,7 +4,7 @@ namespace Vikpe;
 
 class HtmlHeadingNormalizer
 {
-    public static function normalize($html, $base_level = 1)
+    public static function normalize($html, $baseLevel = 1)
     {
         if (!self::htmlContainsHeadings($html)) {
             return $html;
@@ -15,25 +15,25 @@ class HtmlHeadingNormalizer
 
         $headingTagNames = ['h1', 'h2', 'h3', 'h4', 'h6'];
 
-        $originalHeadingDomElements = [];
-        $normalizedHeadingDomElements = [];
+        $originalHeadings = [];
+        $normalizedHeadings = [];
 
         foreach ($headingTagNames as $headingTagName) {
             $headingDomElements = $domDocument->getElementsByTagName($headingTagName);
 
             foreach ($headingDomElements as $headingDomElement) {
                 $currentHeadingLevel = self::headingTagNameToNumber($headingDomElement->tagName);
-                $newHeadingLevel = self::numberToHeadingLevel($base_level + $currentHeadingLevel - 1);
+                $newHeadingLevel = self::numberToHeadingLevel($baseLevel + $currentHeadingLevel - 1);
 
                 if ($newHeadingLevel !== $currentHeadingLevel) {
-                    $originalHeadingDomElements[] = $headingDomElement;
-                    $normalizedHeadingDomElements[] = self::cloneDomElementWithNewTagName($headingDomElement, $newHeadingLevel);
+                    $originalHeadings[] = $headingDomElement;
+                    $normalizedHeadings[] = self::cloneDomElementWithNewTagName($headingDomElement, $newHeadingLevel);
                 }
             }
         }
 
-        foreach ($originalHeadingDomElements as $i => $needle) {
-            $needle->parentNode->replaceChild($normalizedHeadingDomElements[$i], $needle);
+        foreach ($originalHeadings as $i => $needle) {
+            $needle->parentNode->replaceChild($normalizedHeadings[$i], $needle);
         }
 
         return $domDocument->saveHTML();
@@ -54,7 +54,7 @@ class HtmlHeadingNormalizer
 
     private static function numberToHeadingLevel($number)
     {
-        return 'h' . $number;
+        return 'h'.$number;
     }
 
     private static function cloneDomElementWithNewTagName(\DOMElement $sourceDomElement, $newTagName)

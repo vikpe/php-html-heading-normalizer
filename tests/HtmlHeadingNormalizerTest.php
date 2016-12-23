@@ -4,11 +4,11 @@ namespace Vikpe;
 
 class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 {
-    const TEST_FILES_DIR = __DIR__ . '/file/';
+    const TEST_FILES_DIR = __DIR__.'/file/';
 
     private function getTestFileContents($filename)
     {
-        return file_get_contents(self::TEST_FILES_DIR . $filename);
+        return file_get_contents(self::TEST_FILES_DIR.$filename);
     }
 
     public function assertHtmlStringEqualsHtmlString($expect, $actual)
@@ -30,7 +30,7 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider normalizeDataProvider
      */
-    public function testNormalize($html, $expect)
+    public function testNormalizeSimpleHtmlStrings($html, $expect)
     {
         $actual = HtmlHeadingNormalizer::normalize($html);
 
@@ -45,7 +45,7 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testNormalize_promoteHtmlDocument()
+    public function testNormalizePromoteHtmlDocument()
     {
         $inputHtml = $this->getTestFileContents('document.base1.html');
         $normalizedHtml = HtmlHeadingNormalizer::normalize($inputHtml, 3);
