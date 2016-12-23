@@ -16,9 +16,10 @@ class HtmlHeadingNormalizer
         $originalHeadings = self::getHeadings($domDocument);
         $normalizedHeadings = self::normalizeHeadings($originalHeadings, $baseLevel);
 
-        foreach ($originalHeadings as $i => $needle) {
-            $needle->parentNode->replaceChild($normalizedHeadings[$i], $needle);
-        }
+        self::replaceHeadings(
+            $originalHeadings,
+            $normalizedHeadings
+        );
 
         return $domDocument->saveHTML();
     }
@@ -50,6 +51,13 @@ class HtmlHeadingNormalizer
         }
 
         return $normalizedHeadings;
+    }
+
+    private static function replaceHeadings(array $needles, array $replacements)
+    {
+        foreach ($needles as $i => $needle) {
+            $needle->parentNode->replaceChild($replacements[$i], $needle);
+        }
     }
 
     private static function containsHeadings($html)
