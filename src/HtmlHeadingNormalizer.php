@@ -62,8 +62,8 @@ class HtmlHeadingNormalizer
 
     private static function containsHeadings($html)
     {
-        $heading_needle = '<h';
-        $containsHeadings = (false !== stripos($html, $heading_needle));
+        $headingNeedle = '<h';
+        $containsHeadings = (false !== stripos($html, $headingNeedle));
 
         return $containsHeadings;
     }
