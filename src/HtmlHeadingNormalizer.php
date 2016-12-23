@@ -13,27 +13,43 @@ class HtmlHeadingNormalizer
         $domDocument = new \DOMDocument();
         $domDocument->loadHTML($html);
 
-        $headingTagNames = ['h1', 'h2', 'h3', 'h4', 'h6'];
-
-        $originalHeadings = [];
-        $normalizedHeadings = [];
-
-        foreach ($headingTagNames as $headingTagName) {
-            $headingDomElements = $domDocument->getElementsByTagName($headingTagName);
-
-            foreach ($headingDomElements as $headingDomElement) {
-                $currentHeadingLevel = self::headingTagNameToNumber($headingDomElement->tagName);
-                $newHeadingLevel = self::numberToHeadingLevel($baseLevel + $currentHeadingLevel - 1);
-                $originalHeadings[] = $headingDomElement;
-                $normalizedHeadings[] = self::cloneDomElementWithNewTagName($headingDomElement, $newHeadingLevel);
-            }
-        }
+        $originalHeadings = self::getHeadings($domDocument);
+        $normalizedHeadings = self::normalizeHeadings($originalHeadings, $baseLevel);
 
         foreach ($originalHeadings as $i => $needle) {
             $needle->parentNode->replaceChild($normalizedHeadings[$i], $needle);
         }
 
         return $domDocument->saveHTML();
+    }
+
+    private static function getHeadings(\DOMDocument $domDocument)
+    {
+        $tagNames = ['h1', 'h2', 'h3', 'h4', 'h6'];
+
+        $headings = [];
+
+        foreach ($tagNames as $tagName) {
+            foreach ($domDocument->getElementsByTagName($tagName) as $heading) {
+                $headings[] = $heading;
+            }
+        }
+
+        return $headings;
+    }
+
+    private static function normalizeHeadings(array $originalHeadings, $baseLevel)
+    {
+        $normalizedHeadings = [];
+
+        foreach ($originalHeadings as $heading) {
+            $currentHeadingLevel = self::headingTagNameToNumber($heading->tagName);
+            $newHeadingLevel = self::numberToHeadingLevel($baseLevel + $currentHeadingLevel - 1);
+
+            $normalizedHeadings[] = self::cloneDomElementWithNewTagName($heading, $newHeadingLevel);
+        }
+
+        return $normalizedHeadings;
     }
 
     private static function htmlContainsHeadings($html)
