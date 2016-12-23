@@ -6,7 +6,7 @@ class HtmlHeadingNormalizer
 {
     public static function normalize($html, $baseLevel = 1)
     {
-        if (!self::htmlContainsHeadings($html)) {
+        if (!self::containsHeadings($html)) {
             return $html;
         }
 
@@ -43,40 +43,39 @@ class HtmlHeadingNormalizer
         $normalizedHeadings = [];
 
         foreach ($originalHeadings as $heading) {
-            $currentHeadingLevel = self::headingTagNameToNumber($heading->tagName);
-            $newHeadingLevel = self::numberToHeadingLevel($baseLevel + $currentHeadingLevel - 1);
+            $currentLevel = self::tagNameToLevel($heading->tagName);
+            $newTagName = self::levelToTagName($baseLevel + $currentLevel - 1);
 
-            $normalizedHeadings[] = self::cloneDomElementWithNewTagName($heading, $newHeadingLevel);
+            $normalizedHeadings[] = self::cloneHeading($heading, $newTagName);
         }
 
         return $normalizedHeadings;
     }
 
-    private static function htmlContainsHeadings($html)
+    private static function containsHeadings($html)
     {
-        $headingNeedle = '<h';
-        $containsHeadings = (false !== stripos($html, $headingNeedle));
+        $heading_needle = '<h';
 
-        return $containsHeadings;
+        return (false !== stripos($html, $heading_needle));
     }
 
-    private static function headingTagNameToNumber($headingLevel)
+    private static function tagNameToLevel($tagName)
     {
-        return substr($headingLevel, 1);
+        return substr($tagName, 1);
     }
 
-    private static function numberToHeadingLevel($number)
+    private static function levelToTagName($number)
     {
         return 'h'.$number;
     }
 
-    private static function cloneDomElementWithNewTagName(\DOMElement $sourceDomElement, $newTagName)
+    private static function cloneHeading(\DOMElement $sourceHeading, $tagName)
     {
-        $targetDomElement = $sourceDomElement->parentNode->ownerDocument->createElement($newTagName);
-        self::copyAttributes($sourceDomElement, $targetDomElement);
-        self::moveChildNodes($sourceDomElement, $targetDomElement);
+        $targetHeading = $sourceHeading->parentNode->ownerDocument->createElement($tagName);
+        self::copyAttributes($sourceHeading, $targetHeading);
+        self::moveChildNodes($sourceHeading, $targetHeading);
 
-        return $targetDomElement;
+        return $targetHeading;
     }
 
     private static function copyAttributes(\DOMElement $source, \DOMElement $target)
