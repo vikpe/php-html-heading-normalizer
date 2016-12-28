@@ -45,9 +45,9 @@ class HtmlHeadingNormalizer
 
         foreach ($originalHeadings as $heading) {
             $currentLevel = self::tagNameToLevel($heading->tagName);
-            $newTagName = self::levelToTagName($baseLevel + $currentLevel - 1);
+            $normalizedLevel = ($baseLevel - 1) + $currentLevel;
 
-            $normalizedHeadings[] = self::cloneHeading($heading, $newTagName);
+            $normalizedHeadings[] = self::cloneHeading($heading, $normalizedLevel);
         }
 
         return $normalizedHeadings;
@@ -78,8 +78,15 @@ class HtmlHeadingNormalizer
         return 'h'.$level;
     }
 
-    private static function cloneHeading(\DOMElement $sourceHeading, $tagName)
+    private static function cloneHeading(\DOMElement $sourceHeading, $level = null)
     {
+        if (null !== $level) {
+            $tagName = self::levelToTagName($level);
+        }
+        else {
+            $tagName = $sourceHeading->tagName;
+        }
+
         $targetHeading = $sourceHeading->parentNode->ownerDocument->createElement($tagName);
         self::copyAttributes($sourceHeading, $targetHeading);
         self::moveChildNodes($sourceHeading, $targetHeading);
