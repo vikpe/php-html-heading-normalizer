@@ -73,9 +73,9 @@ class HtmlHeadingNormalizer
         return substr($tagName, 1);
     }
 
-    private static function levelToTagName($number)
+    private static function levelToTagName($level)
     {
-        return 'h'.$number;
+        return 'h'.$level;
     }
 
     private static function cloneHeading(\DOMElement $sourceHeading, $tagName)
