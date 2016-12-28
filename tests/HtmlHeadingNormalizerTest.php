@@ -40,6 +40,7 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
         return array(
             array('', 1, ''),
             array('<p>foo</p>', 1, '<p>foo</p>'),
+            array('<h1>foo</h1>', 0, '<h1>foo</h1>'),
         );
     }
 
@@ -67,6 +68,7 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
         return array(
             array('', 1, ''),
             array('<p>foo</p>', 1, '<p>foo</p>'),
+            array('<h1>foo</h1>', 0, '<h1>foo</h1>'),
         );
     }
 
