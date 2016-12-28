@@ -1,1 +1,10 @@
 preset: recommended
+
+risky: false
+
+disabled:
+  - short_array_syntax
+
+enabled:
+  - long_array_syntax
+  - strict
