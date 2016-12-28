@@ -9,6 +9,11 @@ class HtmlHeadingNormalizer
         return self::normalize($html, $levels);
     }
 
+    public static function promote($html, $levels)
+    {
+        return self::normalize($html, -$levels);
+    }
+
     private static function normalize($html, $levels)
     {
         if (!self::containsHeadings($html)) {
@@ -31,7 +36,7 @@ class HtmlHeadingNormalizer
 
     private static function getHeadings(\DOMDocument $domDocument)
     {
-        $tagNames = array('h1', 'h2', 'h3', 'h4', 'h6');
+        $tagNames = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
 
         $headings = array();
 
