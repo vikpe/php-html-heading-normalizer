@@ -39,10 +39,10 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function normalizeDataProvider()
     {
-        return [
-            ['', ''],
-            ['<p>foo</p>', '<p>foo</p>'],
-        ];
+        return array(
+            array('', ''),
+            array('<p>foo</p>', '<p>foo</p>'),
+        );
     }
 
     public function testNormalizePromoteHtmlDocument()
