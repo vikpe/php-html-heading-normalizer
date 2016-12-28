@@ -1,7 +1,5 @@
 preset: recommended
 
-risky: false
-
 disabled:
   - short_array_syntax
 
