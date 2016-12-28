@@ -16,7 +16,7 @@ class HtmlHeadingNormalizer
 
     private static function normalize($html, $levels)
     {
-        $normalizationIsRequired = (($levels != 0) && self::containsHeadings($html));
+        $normalizationIsRequired = ((abs($levels) > 0) && self::containsHeadings($html));
 
         if (!$normalizationIsRequired) {
             return $html;
