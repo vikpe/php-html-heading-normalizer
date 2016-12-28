@@ -26,29 +26,29 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider normalizeDataProvider
+     * @dataProvider demoteSimpleHtmlStringsDataProvider
      */
-    public function testNormalizeSimpleHtmlStrings($html, $expect)
+    public function testDemoteSimpleHtmlStrings($html, $numberOfLevels, $expect)
     {
-        $actual = HtmlHeadingNormalizer::normalize($html);
+        $actual = HtmlHeadingNormalizer::demote($html, $numberOfLevels);
 
         $this->assertEquals($expect, $actual);
     }
 
-    public function normalizeDataProvider()
+    public function demoteSimpleHtmlStringsDataProvider()
     {
         return array(
-            array('', ''),
-            array('<p>foo</p>', '<p>foo</p>'),
+            array('', 1, ''),
+            array('<p>foo</p>', 1, '<p>foo</p>'),
         );
     }
 
-    public function testNormalizePromoteHtmlDocument()
+    public function testDemoteHtmlDocument()
     {
         $inputHtml = $this->getTestFileContents('document.base1.html');
-        $normalizedHtml = HtmlHeadingNormalizer::normalize($inputHtml, 3);
+        $normalizedHtml = HtmlHeadingNormalizer::demote($inputHtml, 2);
 
-        $expectedHtml = $this->getTestFileContents('document.base1.promote3.html');
+        $expectedHtml = $this->getTestFileContents('document.base1.demote2.html');
 
         $this->assertHtmlStringEqualsHtmlString($expectedHtml, $normalizedHtml);
     }
