@@ -46,10 +46,9 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testDemoteHtmlDocument()
     {
         $inputHtml = $this->getTestFileContents('document.base1.html');
-        $normalizedHtml = HtmlHeadingNormalizer::demote($inputHtml, 2);
-
+        $demotedHtml = HtmlHeadingNormalizer::demote($inputHtml, 2);
         $expectedHtml = $this->getTestFileContents('document.base1.demote2.html');
 
-        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $normalizedHtml);
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $demotedHtml);
     }
 }
