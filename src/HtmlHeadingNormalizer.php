@@ -82,8 +82,7 @@ class HtmlHeadingNormalizer
     {
         if (null !== $level) {
             $tagName = self::levelToTagName($level);
-        }
-        else {
+        } else {
             $tagName = $sourceHeading->tagName;
         }
 
