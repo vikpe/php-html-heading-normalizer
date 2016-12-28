@@ -4,11 +4,9 @@ namespace Vikpe;
 
 class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 {
-    const TEST_FILES_DIR = __DIR__.'/file/';
-
     private function getTestFileContents($filename)
     {
-        return file_get_contents(self::TEST_FILES_DIR.$filename);
+        return file_get_contents(__DIR__.'/file/'.$filename);
     }
 
     public function assertHtmlStringEqualsHtmlString($expect, $actual)
