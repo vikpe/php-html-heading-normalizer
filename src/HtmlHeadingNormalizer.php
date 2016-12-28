@@ -39,7 +39,6 @@ class HtmlHeadingNormalizer
     private static function getHeadings(\DOMDocument $domDocument)
     {
         $tagNames = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
-
         $headings = array();
 
         foreach ($tagNames as $tagName) {
@@ -57,9 +56,9 @@ class HtmlHeadingNormalizer
 
         foreach ($originalHeadings as $heading) {
             $currentLevel = self::tagNameToLevel($heading->tagName);
-            $normalizedLevel = $currentLevel + $levelDelta;
+            $newLevel = $currentLevel + $levelDelta;
 
-            $normalizedHeadings[] = self::cloneHeading($heading, $normalizedLevel);
+            $normalizedHeadings[] = self::cloneHeading($heading, $newLevel);
         }
 
         return $normalizedHeadings;
@@ -90,13 +89,9 @@ class HtmlHeadingNormalizer
         return 'h'.$level;
     }
 
-    private static function cloneHeading(\DOMElement $sourceHeading, $level = null)
+    private static function cloneHeading(\DOMElement $sourceHeading, $newLevel)
     {
-        if (null !== $level) {
-            $tagName = self::levelToTagName($level);
-        } else {
-            $tagName = $sourceHeading->tagName;
-        }
+        $tagName = self::levelToTagName($newLevel);
 
         $targetHeading = $sourceHeading->parentNode->ownerDocument->createElement($tagName);
         self::copyAttributes($sourceHeading, $targetHeading);
