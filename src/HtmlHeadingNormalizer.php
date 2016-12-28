@@ -26,9 +26,9 @@ class HtmlHeadingNormalizer
 
     private static function getHeadings(\DOMDocument $domDocument)
     {
-        $tagNames = ['h1', 'h2', 'h3', 'h4', 'h6'];
+        $tagNames = array('h1', 'h2', 'h3', 'h4', 'h6');
 
-        $headings = [];
+        $headings = array();
 
         foreach ($tagNames as $tagName) {
             foreach ($domDocument->getElementsByTagName($tagName) as $heading) {
@@ -41,7 +41,7 @@ class HtmlHeadingNormalizer
 
     private static function normalizeHeadings(array $originalHeadings, $baseLevel)
     {
-        $normalizedHeadings = [];
+        $normalizedHeadings = array();
 
         foreach ($originalHeadings as $heading) {
             $currentLevel = self::tagNameToLevel($heading->tagName);
