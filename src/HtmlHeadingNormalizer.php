@@ -33,7 +33,6 @@ class HtmlHeadingNormalizer
             $normalizedHeadings
         );
 
-        return $domDocument->saveHTML();
         return self::formatResult($domDocument, $html);
     }
 
@@ -130,7 +129,7 @@ class HtmlHeadingNormalizer
 
             $html = $domDocument->saveHTML($bodyDomElement);
 
-            return str_replace(['<body>', '</body>'], '', $html);
+            return str_replace(array('<body>', '</body>'), '', $html);
         }
     }
 
@@ -141,7 +140,7 @@ class HtmlHeadingNormalizer
 
     private static function stringContains($string, $needle)
     {
-        return (false !== strpos($string, $needle));
+        return false !== strpos($string, $needle);
     }
 
     private static function containsHtmlTag($html)

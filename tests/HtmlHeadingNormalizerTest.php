@@ -11,8 +11,8 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public static function stripWhitespace($string)
     {
-        $needlePattern = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s', '/> </s'];
-        $replacements = ['>', '<', '\\1', '><'];
+        $needlePattern = array('/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s', '/> </s');
+        $replacements = array('>', '<', '\\1', '><');
 
         return preg_replace($needlePattern, $replacements, $string);
     }
