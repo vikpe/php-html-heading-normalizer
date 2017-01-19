@@ -9,20 +9,17 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
         return file_get_contents(__DIR__.'/file/'.$filename);
     }
 
+    public static function stripWhitespace($string)
+    {
+        $needlePattern = ['/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s', '/> </s'];
+        $replacements = ['>', '<', '\\1', '><'];
+
+        return preg_replace($needlePattern, $replacements, $string);
+    }
+
     public function assertHtmlStringEqualsHtmlString($expect, $actual)
     {
-        $expectedDom = new \DOMDocument();
-        $expectedDom->loadHtml($expect);
-        $expectedDom->preserveWhiteSpace = false;
-
-        $actualDom = new \DOMDocument();
-        $actualDom->loadHTML($actual);
-        $actualDom->preserveWhiteSpace = false;
-
-        $this->assertEquals(
-            $expectedDom->saveHTML(),
-            $actualDom->saveHTML()
-        );
+        $this->assertEquals(self::stripWhitespace($expect), self::stripWhitespace($actual));
     }
 
     /**
