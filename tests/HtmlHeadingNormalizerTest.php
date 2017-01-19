@@ -50,6 +50,15 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertHtmlStringEqualsHtmlString($expectedHtml, $demotedHtml);
     }
 
+    public function testDemoteHtmlString()
+    {
+        $inputHtml = $this->getTestFileContents('html.string.base1.html');
+        $demotedHtml = HtmlHeadingNormalizer::demote($inputHtml, 2);
+        $expectedHtml = $this->getTestFileContents('html.string.base3.html');
+
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $demotedHtml);
+    }
+
     /**
      * @dataProvider promoteSimpleHtmlStringsDataProvider
      */
@@ -74,6 +83,15 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
         $inputHtml = $this->getTestFileContents('document.base3.html');
         $promotedHtml = HtmlHeadingNormalizer::promote($inputHtml, 2);
         $expectedHtml = $this->getTestFileContents('document.base1.html');
+
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $promotedHtml);
+    }
+
+    public function testPromoteHtmlString()
+    {
+        $inputHtml = $this->getTestFileContents('html.string.base3.html');
+        $promotedHtml = HtmlHeadingNormalizer::promote($inputHtml, 2);
+        $expectedHtml = $this->getTestFileContents('html.string.base1.html');
 
         $this->assertHtmlStringEqualsHtmlString($expectedHtml, $promotedHtml);
     }

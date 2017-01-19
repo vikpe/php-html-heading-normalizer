@@ -34,6 +34,7 @@ class HtmlHeadingNormalizer
         );
 
         return $domDocument->saveHTML();
+        return self::formatResult($domDocument, $html);
     }
 
     private static function getHeadings(\DOMDocument $domDocument)
@@ -113,5 +114,38 @@ class HtmlHeadingNormalizer
             // appendChild() actually moves the childNode
             $target->appendChild($source->childNodes->item(0));
         }
+    }
+
+    private static function formatResult(\DOMDocument $domDocument, $originalHtml)
+    {
+        if (!self::containsDocType($originalHtml)) {
+            $domDocument->removeChild($domDocument->doctype);
+        }
+
+        if (self::containsHtmlTag($originalHtml)) {
+            return $domDocument->saveHTML();
+        } else {
+            $bodyDomElement = $domDocument->getElementsByTagName('body')
+                                          ->item(0);
+
+            $html = $domDocument->saveHTML($bodyDomElement);
+
+            return str_replace(['<body>', '</body>'], '', $html);
+        }
+    }
+
+    private static function containsDocType($html)
+    {
+        return self::stringContains($html, '<!DOCTYPE');
+    }
+
+    private static function stringContains($string, $needle)
+    {
+        return (false !== strpos($string, $needle));
+    }
+
+    private static function containsHtmlTag($html)
+    {
+        return self::stringContains($html, '<html');
     }
 }
