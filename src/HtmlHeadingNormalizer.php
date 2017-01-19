@@ -4,19 +4,19 @@ namespace Vikpe;
 
 class HtmlHeadingNormalizer
 {
-    public static function demote($html, $levels)
+    public static function demote($html, $numberOfLevels)
     {
-        return self::normalize($html, $levels);
+        return self::normalize($html, $numberOfLevels);
     }
 
-    public static function promote($html, $levels)
+    public static function promote($html, $numberOfLevels)
     {
-        return self::normalize($html, -$levels);
+        return self::normalize($html, -$numberOfLevels);
     }
 
-    private static function normalize($html, $levels)
+    private static function normalize($html, $numberOfLevels)
     {
-        $normalizationIsRequired = ((abs($levels) > 0) && self::containsHeadings($html));
+        $normalizationIsRequired = ((abs($numberOfLevels) > 0) && self::containsHeadings($html));
 
         if (!$normalizationIsRequired) {
             return $html;
@@ -26,7 +26,7 @@ class HtmlHeadingNormalizer
         $domDocument->loadHTML($html);
 
         $originalHeadings = self::getHeadings($domDocument);
-        $normalizedHeadings = self::normalizeHeadings($originalHeadings, $levels);
+        $normalizedHeadings = self::normalizeHeadings($originalHeadings, $numberOfLevels);
 
         self::replaceHeadings(
             $originalHeadings,
@@ -50,13 +50,13 @@ class HtmlHeadingNormalizer
         return $headings;
     }
 
-    private static function normalizeHeadings(array $originalHeadings, $levelDelta)
+    private static function normalizeHeadings(array $originalHeadings, $numberOfLevels)
     {
         $normalizedHeadings = array();
 
         foreach ($originalHeadings as $heading) {
             $currentLevel = self::tagNameToLevel($heading->tagName);
-            $newLevel = $currentLevel + $levelDelta;
+            $newLevel = $currentLevel + $numberOfLevels;
 
             $normalizedHeadings[] = self::cloneHeading($heading, $newLevel);
         }

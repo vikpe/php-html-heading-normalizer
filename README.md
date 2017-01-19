@@ -13,15 +13,15 @@ composer require vikpe/php-html-heading-normalizer
 ```
 
 ## Methods
-### promote(string $html, int $levels)
-Promotes all headings in $html by $levels.
+### promote(string $html, int $numberOfLevels)
+Promotes all headings in `$html` by `$numberOfLevels` levels.
 
 ```php
 \Vikpe\HtmlHeadingNormalizer::promote('<h6>Foo</h6>', 3); // '<h3>Foo</h3>'
 ```
 
-### demote(string $html, int $levels)
-Demotes all headings in $html by $levels.
+### demote(string $html, int $numberOfLevels)
+Demotes all headings in `$html` by `$numberOfLevels` levels.
 ```php
 \Vikpe\HtmlHeadingNormalizer::demote('<h1>Foo</h1>', 1); // '<h2>Foo</h2>'
 ```
