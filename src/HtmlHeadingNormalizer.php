@@ -27,11 +27,7 @@ class HtmlHeadingNormalizer
 
         $originalHeadings = self::getHeadings($domDocument);
         $normalizedHeadings = self::normalizeHeadings($originalHeadings, $numberOfLevels);
-
-        self::replaceHeadings(
-            $originalHeadings,
-            $normalizedHeadings
-        );
+        self::replaceHeadings($originalHeadings, $normalizedHeadings);
 
         return self::formatResult($domDocument, $html);
     }
