@@ -21,9 +21,9 @@ class HtmlHeadingNormalizer
         }
 
         $currentMinLevel = min(self::headingLevels($html));
-        $levelDelta = $minLevel - $currentMinLevel;
+        $levelDiff = $minLevel - $currentMinLevel;
 
-        return self::normalize($html, $levelDelta);
+        return self::normalize($html, $levelDiff);
     }
 
     private static function normalize($html, $numberOfLevels)
