@@ -20,7 +20,7 @@ class HtmlHeadingNormalizer
             return $html;
         }
 
-        $currentMinLevel = self::minHeadingLevel($html);
+        $currentMinLevel = min(self::headingLevels($html));
         $levelDelta = $minLevel - $currentMinLevel;
 
         return self::normalize($html, $levelDelta);
@@ -156,7 +156,7 @@ class HtmlHeadingNormalizer
         return self::stringContains($html, '<html');
     }
 
-    private static function minHeadingLevel($html)
+    private static function headingLevels($html)
     {
         $domDocument = new \DOMDocument();
         $domDocument->loadHTML($html);
@@ -167,6 +167,6 @@ class HtmlHeadingNormalizer
             $headingLevels[] = self::tagNameToLevel($heading->tagName);
         }
 
-        return min($headingLevels);
+        return $headingLevels;
     }
 }
