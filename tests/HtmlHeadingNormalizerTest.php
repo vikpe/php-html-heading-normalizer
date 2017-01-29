@@ -114,4 +114,61 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHtmlStringEqualsHtmlString($expectedHtml, $promotedHtml);
     }
+
+    /**
+     * @dataProvider minSimpleHtmlStringsDataProvider
+     */
+    public function testMinSimpleHtmlStrings($html, $numberOfLevels, $expect)
+    {
+        $actual = HtmlHeadingNormalizer::min($html, $numberOfLevels);
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    public function minSimpleHtmlStringsDataProvider()
+    {
+        return array(
+            array('<p>foo</p>', 1, '<p>foo</p>'),
+            array('<h1>foo</h1>', 1, '<h1>foo</h1>'),
+            array('<h2>foo</h2>', 1, '<h1>foo</h1>'),
+            array('<h3>foo</h3>', 1, '<h1>foo</h1>'),
+            array('<h4>foo</h4>', 1, '<h1>foo</h1>'),
+            array('<h5>foo</h5>', 1, '<h1>foo</h1>'),
+            array('<h6>foo</h6>', 1, '<h1>foo</h1>'),
+        );
+    }
+
+    public function testMinHtmlDocument()
+    {
+        // promote
+        $inputHtml = $this->getTestFileContents('document.base3.html');
+        $normalizedHtml = HtmlHeadingNormalizer::min($inputHtml, 1);
+        $expectedHtml = $this->getTestFileContents('document.base1.html');
+
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $normalizedHtml);
+
+        // demote
+        $inputHtml = $this->getTestFileContents('document.base1.html');
+        $normalizedHtml = HtmlHeadingNormalizer::min($inputHtml, 3);
+        $expectedHtml = $this->getTestFileContents('document.base3.html');
+
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $normalizedHtml);
+    }
+
+    public function testMinHtmlString()
+    {
+        // promote
+        $inputHtml = $this->getTestFileContents('html.string.base3.html');
+        $normalizedHtml = HtmlHeadingNormalizer::min($inputHtml, 1);
+        $expectedHtml = $this->getTestFileContents('html.string.base1.html');
+
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $normalizedHtml);
+
+        // demote
+        $inputHtml = $this->getTestFileContents('document.base1.html');
+        $normalizedHtml = HtmlHeadingNormalizer::min($inputHtml, 3);
+        $expectedHtml = $this->getTestFileContents('document.base3.html');
+
+        $this->assertHtmlStringEqualsHtmlString($expectedHtml, $normalizedHtml);
+    }
 }
