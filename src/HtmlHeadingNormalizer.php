@@ -14,6 +14,18 @@ class HtmlHeadingNormalizer
         return self::normalize($html, -$numberOfLevels);
     }
 
+    public static function min($html, $minLevel)
+    {
+        if (!self::containsHeadings($html)) {
+            return $html;
+        }
+
+        $currentMinLevel = self::minHeadingLevel($html);
+        $levelDelta = $minLevel - $currentMinLevel;
+
+        return self::normalize($html, $levelDelta);
+    }
+
     private static function normalize($html, $numberOfLevels)
     {
         $normalizationIsRequired = ((abs($numberOfLevels) > 0) && self::containsHeadings($html));
@@ -142,5 +154,19 @@ class HtmlHeadingNormalizer
     private static function containsHtmlTag($html)
     {
         return self::stringContains($html, '<html');
+    }
+
+    private static function minHeadingLevel($html)
+    {
+        $domDocument = new \DOMDocument();
+        $domDocument->loadHTML($html);
+        $headings = self::getHeadings($domDocument);
+        $headingLevels = array();
+
+        foreach ($headings as $heading) {
+            $headingLevels[] = self::tagNameToLevel($heading->tagName);
+        }
+
+        return min($headingLevels);
     }
 }
