@@ -128,6 +128,7 @@ class HtmlHeadingNormalizerTest extends \PHPUnit_Framework_TestCase
     public function minSimpleHtmlStringsDataProvider()
     {
         return array(
+            array('<p>foo</p>', 1, '<p>foo</p>'),
             array('<h1>foo</h1>', 1, '<h1>foo</h1>'),
             array('<h2>foo</h2>', 1, '<h1>foo</h1>'),
             array('<h3>foo</h3>', 1, '<h1>foo</h1>'),
