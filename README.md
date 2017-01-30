@@ -29,5 +29,5 @@ Demotes all headings in `$html` by `$numberOfLevels` levels.
 ### min(string $html, int $minLevel)
 Promotes/demotes all headings in `$html` so that the lowest heading level equals `$minLevel`.
 ```php
-\Vikpe\HtmlHeadingNormalizer::min('<h4>Foo</h4>', 1); // '<h1>Foo</h1>'
+\Vikpe\HtmlHeadingNormalizer::min('<h4>Foo</h4><h5>Bar</h5>', 1); // '<h1>Foo</h1><h2>Bar</h2>'
 ```
