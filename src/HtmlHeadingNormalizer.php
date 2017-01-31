@@ -6,12 +6,12 @@ class HtmlHeadingNormalizer
 {
     public static function demote($html, $numberOfLevels)
     {
-        return self::normalize($html, $numberOfLevels);
+        return self::shiftHeadingLevels($html, $numberOfLevels);
     }
 
     public static function promote($html, $numberOfLevels)
     {
-        return self::normalize($html, -$numberOfLevels);
+        return self::shiftHeadingLevels($html, -$numberOfLevels);
     }
 
     public static function min($html, $minLevel)
@@ -20,13 +20,13 @@ class HtmlHeadingNormalizer
             return $html;
         }
 
-        $currentMinLevel = min(self::headingLevels($html));
+        $currentMinLevel = min(self::getHeadingLevels($html));
         $levelDiff = $minLevel - $currentMinLevel;
 
-        return self::normalize($html, $levelDiff);
+        return self::shiftHeadingLevels($html, $levelDiff);
     }
 
-    private static function normalize($html, $numberOfLevels)
+    private static function shiftHeadingLevels($html, $numberOfLevels)
     {
         $normalizationIsRequired = ((abs($numberOfLevels) > 0) && self::containsHeadings($html));
 
@@ -156,7 +156,7 @@ class HtmlHeadingNormalizer
         return self::stringContains($html, '<html');
     }
 
-    private static function headingLevels($html)
+    private static function getHeadingLevels($html)
     {
         $domDocument = new \DOMDocument();
         $domDocument->loadHTML($html);
