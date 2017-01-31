@@ -28,9 +28,9 @@ class HtmlHeadingNormalizer
 
     private static function shiftHeadingLevels($html, $numberOfLevels)
     {
-        $normalizationIsRequired = ((abs($numberOfLevels) > 0) && self::containsHeadings($html));
+        $shiftIsRequired = ((abs($numberOfLevels) > 0) && self::containsHeadings($html));
 
-        if (!$normalizationIsRequired) {
+        if (!$shiftIsRequired) {
             return $html;
         }
 
@@ -38,8 +38,8 @@ class HtmlHeadingNormalizer
         $domDocument->loadHTML($html);
 
         $originalHeadings = self::getHeadings($domDocument);
-        $normalizedHeadings = self::normalizeHeadings($originalHeadings, $numberOfLevels);
-        self::replaceHeadings($originalHeadings, $normalizedHeadings);
+        $shiftedHeadings = self::shiftHeadings($originalHeadings, $numberOfLevels);
+        self::replaceHeadings($originalHeadings, $shiftedHeadings);
 
         return self::formatResult($domDocument, $html);
     }
@@ -58,18 +58,18 @@ class HtmlHeadingNormalizer
         return $headings;
     }
 
-    private static function normalizeHeadings(array $originalHeadings, $numberOfLevels)
+    private static function shiftHeadings(array $originalHeadings, $numberOfLevels)
     {
-        $normalizedHeadings = array();
+        $shiftedHeadings = array();
 
         foreach ($originalHeadings as $heading) {
             $currentLevel = self::tagNameToLevel($heading->tagName);
             $newLevel = $currentLevel + $numberOfLevels;
 
-            $normalizedHeadings[] = self::cloneHeading($heading, $newLevel);
+            $shiftedHeadings[] = self::cloneHeading($heading, $newLevel);
         }
 
-        return $normalizedHeadings;
+        return $shiftedHeadings;
     }
 
     private static function replaceHeadings(array $needles, array $replacements)
